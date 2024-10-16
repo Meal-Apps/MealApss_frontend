@@ -7,6 +7,7 @@ function Register() {
     const [email,setEmail] = useState()
     const [mealName,setMealname] = useState()
     const [password,setPassword] = useState()
+    const [error,setError] = useState()
   useEffect(() => {
     document.title = "Register Manager | Meal Management";
   }, []);
@@ -23,8 +24,14 @@ function Register() {
     .then((res) => {
       console.log(res);
     })
-    .catch((err) => {
-      console.log(err);
+    .catch((error) => {
+      console.log(error);
+      if(error.response.status == 422){
+        setError(error.response.data.errors)
+    }
+    else{
+        setError(error.response.data)
+    }
     })
   } 
   return (
@@ -46,18 +53,22 @@ function Register() {
           <div className="relative">
               <input autocomplete="off" id="name" value={name} onChange={(e) => setName(e.target.value)} name="name" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Your Name" />
               <label for="name" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Your Name</label>
+              {error && <p className="text-red-700">{error.name}</p>}
             </div>
             <div className="relative">
               <input autocomplete="off" value={email} onChange={(e) => setEmail(e.target.value)} id="email" name="email" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Email address" />
               <label for="email" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Email Address</label>
+              {error && <p className="text-red-700">{error.email}</p>}
             </div>
             <div className="relative">
               <input autocomplete="off" value={mealName} onChange={(e) => setMealname(e.target.value)} id="mealname" name="mealname" type="text" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Enter Meal Name" />
               <label for="mealname" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Enter Meal Name</label>
+              {error && <p className="text-red-700">{error.meal_name}</p>}
             </div>
             <div className="relative">
               <input autocomplete="off" value={password} onChange={(e) => setPassword(e.target.value)} id="password" name="password" type="password" className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600" placeholder="Password" />
               <label for="password" className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">Password</label>
+              {error && <p className="text-red-700">{error.password}</p>}
             </div>
             <div className="relative">
               <button className="bg-cyan-500 text-white rounded-md px-2 py-1">Submit</button>
