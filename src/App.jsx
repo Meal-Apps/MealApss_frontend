@@ -7,6 +7,9 @@ import Home from './pages/home'
 import Login from './pages/auth/manager/Login'
 import Register from './pages/auth/manager/Register'
 import axios from 'axios'
+import ManagerDashLayout from './pages/ManagerDashboard/ManagerDashLayout'
+import ManagerDashboard from './pages/ManagerDashboard/ManagerDashboard'
+import ManagerOutlet from './pages/auth/outlet/ManagerOutlet'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,6 +20,9 @@ function App() {
       <Route exact path='/' element={<Home/>}></Route>
       <Route exact path='/manager-login' element={<Login/>}></Route>
       <Route exact path='/manager-register' element={<Register/>}></Route>
+      <Route exact path='*' element={<ManagerOutlet/>}>
+        <Route exact path='manager/dashboard' element={<ManagerDashboard/>}></Route>
+      </Route>
     </Routes>
   )
 }

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 
@@ -9,6 +9,7 @@ function Login() {
   const [email,setEmail] = useState();
   const [password,setPassword] = useState();
   const [error,setError] = useState()
+  const historys = useNavigate();
   useEffect(() => {
     document.title = "Login Manager | Meal Management";
   }, []);
@@ -18,8 +19,20 @@ function Login() {
     axios.post('login',{
       email : email,
       password : password
-    }).then((res) => {
-      console.log(res);
+    }).then((response) => {
+      console.log(response);
+      var userDatas = {
+        access_token: response?.data?.token, 
+         
+        name: response?.data?.name,
+        meal_name : response?.data?.meal_name,
+        email: response?.data?.email,
+        
+        
+      }  
+      localStorage.setItem('manager',JSON.stringify(userDatas));
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
+      historys('/manager/dashboard')
     }).catch((err) => {
       // console.log(err)
       if(err.response.status == 422){
