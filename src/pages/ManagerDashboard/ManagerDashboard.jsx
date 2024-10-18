@@ -1,37 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ManagerDashLayout from './ManagerDashLayout'
+import axios from 'axios'
+import ManagerExpense from '../../componets/Manager/ManagerExpense';
+import ManagerBalance from '../../componets/Manager/ManagerBalance';
 
 function ManagerDashboard() {
+   const [managerInfo,setManagerInfo] = useState()
+   const token = JSON.parse(localStorage.getItem('manager'));
+   console.log(token)
+   useEffect(() => {
+      axios.get('getManagers',{
+         headers : {
+            Authorization : 'Bearer ' + token?.access_token
+         }
+      })
+      .then((response) => {
+         setManagerInfo(response?.data)
+         console.log(response)
+      })
+      .catch((err) => {
+         console.log(err)
+      })
+   },[])
+   console.log(managerInfo)
   return (
     <ManagerDashLayout>
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            {/* <div className="grid grid-cols-3 gap-4 mb-4">
-               <div className="flex items-center   rounded-sm shadow bg-gray-50 dark:bg-gray-800">
-                  
-               <div className='flex flex-col w-11 h-11 items-center justify-center'>
-                  <h1>Total Users</h1>
-               </div>
-               <div className='flex  items-end justify-center'>
-                  <h1>Total Users orginization</h1>
-               </div>
-
-
-               </div>
-               <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                  <p className="text-2xl text-gray-400 dark:text-gray-500">
-                     <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                     </svg>
-                  </p>
-               </div>
-               <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                  <p className="text-2xl text-gray-400 dark:text-gray-500">
-                     <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                     </svg>
-                  </p>
-               </div>
-            </div> */}
+         
 <div class="grid grid-cols-1 gap-4 px-4 mb-4 mt-8 sm:grid-cols-4 sm:px-8">
     <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
         <div class="p-4 bg-green-400">
@@ -44,7 +39,7 @@ function ManagerDashboard() {
         </div>
         <div class="px-4 text-gray-700">
             <h3 class="text-sm tracking-wider">Total Member</h3>
-            <p class="text-3xl">12,768</p>
+            <p class="text-3xl">{managerInfo?.users.length}</p>
         </div>
     </div>
     <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
@@ -54,7 +49,7 @@ function ManagerDashboard() {
             </svg></div>
         <div class="px-4 text-gray-700">
             <h3 class="text-sm tracking-wider">Total Balance</h3>
-            <p class="text-3xl">39,265</p>
+            <p class="text-3xl">{managerInfo?.totalBalance}</p>
         </div>
     </div>
     <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
@@ -65,7 +60,7 @@ function ManagerDashboard() {
         </div>
         <div class="px-4 text-gray-700">
             <h3 class="text-sm tracking-wider">Current Balance</h3>
-            <p class="text-3xl">142,334</p>
+            <p class="text-3xl">{managerInfo?.currentBalance}</p>
         </div>
     </div>
     <div class="flex items-center bg-white border rounded-sm overflow-hidden shadow">
@@ -75,13 +70,22 @@ function ManagerDashboard() {
             </svg></div>
         <div class="px-4 text-gray-700">
             <h3 class="text-sm tracking-wider">Expense</h3>
-            <p class="text-3xl">35353</p>
+            <p class="text-3xl">{managerInfo?.totalExpenses}</p>
         </div>
     </div>
 </div>
 
 
             
+            <div className="grid  grid-cols-1  gap-4 mb-4 sm:grid-cols-2 ">
+               <div className='bg-gray-50 rounded  dark:bg-gray-800'>
+                  <ManagerBalance/>
+               </div>
+               <div className='bg-gray-50 rounded  dark:bg-gray-800'>
+                  <ManagerExpense/>
+               </div>
+            </div>
+           
             <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
                <p className="text-2xl text-gray-400 dark:text-gray-500">
                   <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
@@ -89,73 +93,7 @@ function ManagerDashboard() {
                   </svg>
                </p>
             </div>
-            <div className="grid grid-cols-2 gap-4 mb-4">
-               <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                  <p className="text-2xl text-gray-400 dark:text-gray-500">
-                     <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                     </svg>
-                  </p>
-               </div>
-               <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                  <p className="text-2xl text-gray-400 dark:text-gray-500">
-                     <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                     </svg>
-                  </p>
-               </div>
-               <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                  <p className="text-2xl text-gray-400 dark:text-gray-500">
-                     <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                     </svg>
-                  </p>
-               </div>
-               <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                  <p className="text-2xl text-gray-400 dark:text-gray-500">
-                     <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                     </svg>
-                  </p>
-               </div>
-            </div>
-            <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-               <p className="text-2xl text-gray-400 dark:text-gray-500">
-                  <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                  </svg>
-               </p>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-               <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                  <p className="text-2xl text-gray-400 dark:text-gray-500">
-                     <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                     </svg>
-                  </p>
-               </div>
-               <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                  <p className="text-2xl text-gray-400 dark:text-gray-500">
-                     <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                     </svg>
-                  </p>
-               </div>
-               <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                  <p className="text-2xl text-gray-400 dark:text-gray-500">
-                     <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                     </svg>
-                  </p>
-               </div>
-               <div className="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                  <p className="text-2xl text-gray-400 dark:text-gray-500">
-                     <svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                     </svg>
-                  </p>
-               </div>
-            </div>
+            
          </div>
     </ManagerDashLayout>
   )
