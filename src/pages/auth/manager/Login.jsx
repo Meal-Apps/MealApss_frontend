@@ -22,12 +22,12 @@ function Login() {
     }).then((response) => {
       console.log(response);
       var userDatas = {
-        access_token: response?.data?.token, 
+        access_token: response?.data?.access_token, 
          
         name: response?.data?.name,
         meal_name : response?.data?.meal_name,
         email: response?.data?.email,
-        
+       
         
       }  
       localStorage.setItem('manager',JSON.stringify(userDatas));

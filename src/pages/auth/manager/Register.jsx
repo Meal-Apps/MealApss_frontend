@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function Register() {
     const [name,setName] = useState();
@@ -8,6 +8,7 @@ function Register() {
     const [mealName,setMealname] = useState()
     const [password,setPassword] = useState()
     const [error,setError] = useState()
+    const historys = useNavigate()
   useEffect(() => {
     document.title = "Register Manager | Meal Management";
   }, []);
@@ -22,7 +23,8 @@ function Register() {
       password : password
     })
     .then((res) => {
-      console.log(res);
+        historys('/manager-login')
+    
     })
     .catch((error) => {
       console.log(error);
