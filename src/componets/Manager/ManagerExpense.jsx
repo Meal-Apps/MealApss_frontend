@@ -30,6 +30,7 @@ function ManagerExpense() {
     })
   },[selectedOption])
   console.log(expenseInfo)
+  console.log(expenseInfo?.expenses.length)
   return (
     <div>
 
@@ -107,7 +108,7 @@ function ManagerExpense() {
       </thead>
       <tbody>
       {
-          expenseInfo?.expenses.lenght > 0 ? (expenseInfo.expenses?.map(item => ( 
+          expenseInfo?.expenses.length > 0 ? (expenseInfo.expenses?.map(item => ( 
             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600" key={item?.id}>
               <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{item?.description}</th>
               <td className="px-6 py-4">{new Date(item.date).toLocaleDateString()}</td>

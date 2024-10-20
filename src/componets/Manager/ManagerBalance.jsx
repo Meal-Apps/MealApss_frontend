@@ -124,7 +124,6 @@ function ManagerBalance() {
     </table>
 </div>
 
-{/* created_at */}
 
       </div>
     </div>
