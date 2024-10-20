@@ -10,6 +10,8 @@ import axios from 'axios'
 import ManagerDashLayout from './pages/ManagerDashboard/ManagerDashLayout'
 import ManagerDashboard from './pages/ManagerDashboard/ManagerDashboard'
 import ManagerOutlet from './pages/auth/outlet/ManagerOutlet'
+import Allexpenses from './pages/auth/manager/Allexpenses'
+import AllBalances from './pages/auth/manager/AllBalances'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +24,8 @@ function App() {
       <Route exact path='/manager-register' element={<Register/>}></Route>
       <Route exact path='*' element={<ManagerOutlet/>}>
         <Route exact path='manager/dashboard' element={<ManagerDashboard/>}></Route>
+        <Route exact path='manager/expenses' element={<Allexpenses/>}></Route>
+        <Route exact path='manager/balance' element={<AllBalances/>}></Route>
       </Route>
     </Routes>
   )
