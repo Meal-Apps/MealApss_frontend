@@ -3,11 +3,36 @@ import ManagerDashLayout from './ManagerDashLayout'
 import axios from 'axios'
 import ManagerExpense from '../../componets/Manager/ManagerExpense';
 import ManagerBalance from '../../componets/Manager/ManagerBalance';
+import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/16/solid';
+ import { Button, IconButton } from "@material-tailwind/react";
+// import { ArrowRightIcon, ArrowLeftIcon } from "@heroicons/react/24/outline";
+ 
 
 function ManagerDashboard() {
    const [managerInfo,setManagerInfo] = useState()
    const token = JSON.parse(localStorage.getItem('manager'));
-   console.log(token)
+   const [active, setActive] = React.useState(1);
+ 
+  const getItemProps = (index) =>
+    ({
+      variant: active === index ? "filled" : "text",
+      color: "gray",
+      onClick: () => setActive(index),
+      className: "rounded-full",
+    } );
+ 
+  const next = () => {
+    if (active === 5) return;
+ 
+    setActive(active + 1);
+  };
+ 
+  const prev = () => {
+    if (active === 1) return;
+ 
+    setActive(active - 1);
+  };
+   
    useEffect(() => {
       axios.get('getManagers',{
          headers : {
@@ -16,13 +41,13 @@ function ManagerDashboard() {
       })
       .then((response) => {
          setManagerInfo(response?.data)
-         console.log(response)
+         
       })
       .catch((err) => {
-         console.log(err)
+        
       })
    },[])
-   console.log(managerInfo)
+  
   return (
     <ManagerDashLayout>
         <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
@@ -86,25 +111,15 @@ function ManagerDashboard() {
                </div>
             </div>
            
-            <div className="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-               <div>
-               <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <div className="flex flex-col sm:flex-row flex-wrap space-y-4 px-4 sm:space-y-0 items-center justify-between pb-4">
-       
-       
-        <div className="relative flex items-center">
-            
-            TotalUser : {managerInfo?.users.length}
-        </div>
-        
-    </div>
-    <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <div className="flex flex-col    mb-4 rounded bg-gray-50 dark:bg-gray-800">
+        <div className='relative overflow-x-auto shadow-md sm:rounded-lg'>
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               
                 <th scope="col" className="px-6 py-3">Name</th>
                 <th scope="col" className="px-6 py-3">Date</th>
-                <th scope="col" className="px-6 py-3">Amount</th>
+                <th scope="col" className="px-6 py-3">id</th>
                 
             </tr>
         </thead>
@@ -124,9 +139,19 @@ function ManagerDashboard() {
            }
             
         </tbody>
+
+     
+
+
+
     </table>
-</div>
-               </div>
+
+
+
+    
+
+    </div>
+           
                <div></div>
             </div>
             

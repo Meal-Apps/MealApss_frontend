@@ -28,7 +28,7 @@ function Allexpenses() {
         setexpenseInfo(response?.data)
       })
       .catch((err) => {
-        console.log(err)
+      
       })
     }
   
@@ -36,9 +36,7 @@ function Allexpenses() {
       fetchBalances()
      
     },[selectedOption])
-    console.log(expenseInfo)
-    console.log(expenseInfo?.expenses.length)
-    console.log('djifd')
+  
     const handleDelete = (id) =>{
         
         axios.delete(`deleteexpense/${id}`,{
@@ -47,20 +45,19 @@ function Allexpenses() {
           }
         })
         .then((response) => {
-          console.log(response); 
-          // setProductData([])
+         fetchBalances()
         })
         .catch((err) => {
-          console.log(err);
+         
         }); 
     
       }
   return (
     <ManagerDashLayout>
        <div className='p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14'>
-       <h1>All expenses</h1>
+      
        <div className=' mb-4 rounded bg-gray-50 dark:bg-gray-800'>
-        <h1>All Expenses</h1>
+       <h2 className="text-lg p-2 font-semibold">All Expenses</h2>
         <ExpensessModal fetchBalances={fetchBalances}/>
         <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
   <div className="flex flex-col sm:flex-row flex-wrap space-y-4 px-4 sm:space-y-0 items-center justify-between pb-4">

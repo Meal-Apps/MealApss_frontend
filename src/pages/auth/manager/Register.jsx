@@ -15,7 +15,7 @@ function Register() {
 
   const submitForm = (e) => {
     e.preventDefault();
-    console.log(name,email,mealName,password);
+   
     axios.post('/register',{
       name :name,
       email: email,
@@ -27,7 +27,7 @@ function Register() {
     
     })
     .catch((error) => {
-      console.log(error);
+     
       if(error.response.status == 422){
         setError(error.response.data.errors)
     }

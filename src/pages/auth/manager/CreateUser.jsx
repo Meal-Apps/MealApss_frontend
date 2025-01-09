@@ -30,7 +30,7 @@ function CreateUser() {
         })
         .catch((err) =>{
          
-            console.log(err)
+           
             if(err.response.status == 422){
                 
                 setError(err.response.data.errors)

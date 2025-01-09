@@ -25,7 +25,7 @@ function AllUserBalance() {
             setbalancesInfo(response?.data)
           })
           .catch((err) => {
-            console.log(err)
+           
           })
        
       },[selectedOption])

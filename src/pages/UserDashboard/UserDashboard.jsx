@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 function UserDashboard() {
     const [managerInfo,setManagerInfo] = useState()
    const token = JSON.parse(localStorage.getItem('manager'));
-   console.log(token)
+  
    useEffect(() => {
       axios.get('getManagers',{
          headers : {
@@ -17,13 +17,13 @@ function UserDashboard() {
       })
       .then((response) => {
          setManagerInfo(response?.data)
-         console.log(response)
+        
       })
       .catch((err) => {
-         console.log(err)
+        
       })
    },[])
-   console.log(managerInfo)
+  
   return (
     <UserDashboardLayout>
     <div className="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">

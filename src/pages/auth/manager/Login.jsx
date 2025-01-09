@@ -15,12 +15,12 @@ function Login() {
   }, []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log(email,password);
+    
     axios.post('login',{
       email : email,
       password : password
     }).then((response) => {
-      console.log(response);
+     
       var userDatas = {
         access_token: response?.data?.access_token, 
          
@@ -34,14 +34,14 @@ function Login() {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
       historys('/manager/dashboard')
     }).catch((err) => {
-      // console.log(err)
+      
       if(err.response.status == 422){
         setError(err.response.data.errors)
     }
     else{
         setError(err.response.data)
     }
-      console.log(error)
+    
     })  
   }
 

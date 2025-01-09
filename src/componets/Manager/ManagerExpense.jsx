@@ -26,11 +26,10 @@ function ManagerExpense() {
       setexpenseInfo(response?.data)
     })
     .catch((err) => {
-      console.log(err)
+     
     })
   },[selectedOption])
-  console.log(expenseInfo)
-  console.log(expenseInfo?.expenses.length)
+ 
   return (
     <div>
 

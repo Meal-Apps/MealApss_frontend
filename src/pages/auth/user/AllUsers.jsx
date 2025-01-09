@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import ManagerDashLayout from '../../ManagerDashboard/ManagerDashLayout'
+import UserDashboardLayout from '../../UserDashboard/UserDashboardLayout';
 import axios from 'axios';
 
-function AllUser() {
+function AllUsers() {
     const [users,setAllUsers] = useState();
     const token = JSON.parse(localStorage.getItem('manager'));
-    const fetchAllUsers = () => {
+    useEffect(() => {
         axios.get('getallusers',{
             headers : {
                 Authorization: 'Bearer ' + token?.access_token,
@@ -17,26 +17,10 @@ function AllUser() {
         .catch((err) => {
            
         })
-    }
-    useEffect(() => {
-        fetchAllUsers()
     },[])
-    const handleDelete = (id) => {
-        axios.delete(`deleteuser/${id}`,{
-            headers : {
-                Authorization : 'Bearer ' + token?.access_token,
-            }
-        })
-        .then((res) => {
-            fetchAllUsers()
-        })
-        .catch(err => {
-           
-        })
-    }
-  
+    console.log(users)
   return (
-    <ManagerDashLayout>
+    <UserDashboardLayout>
          <div className='p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14'>
     
     <div className=' mb-4 rounded bg-gray-50 dark:bg-gray-800'>
@@ -50,7 +34,7 @@ function AllUser() {
   
    <div className="relative flex items-center">
        
-       {/* Totalbalances : {balancesInfo?.totalBalance} */}
+      
    </div>
    
 </div>
@@ -61,7 +45,7 @@ function AllUser() {
            <th scope="col" className="px-6 py-3">Name</th>
            <th scope="col" className="px-6 py-3">Date</th>
            <th scope="col" className="px-6 py-3">Email</th>
-           <th scope="col" className="px-6 py-3">Action</th>
+         
            
        </tr>
    </thead>
@@ -72,10 +56,7 @@ function AllUser() {
            <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">{item?.name}</th>
            <td className="px-6 py-4">{new Date(item.created_at).toLocaleDateString()}</td>
            <td className="px-6 py-4">{item?.email}</td>
-           <td className="px-6 py-4">
-           <button onClick={() =>{handleDelete(item?.id)}} type="button" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ">Delete</button>
-
-           </td>
+           
          </tr>
        ))) : (
          <>
@@ -90,8 +71,8 @@ function AllUser() {
     </div>
    
     </div>
-    </ManagerDashLayout>
+    </UserDashboardLayout>
   )
 }
 
-export default AllUser
+export default AllUsers

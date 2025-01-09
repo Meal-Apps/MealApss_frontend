@@ -12,12 +12,12 @@ function UserLogin() {
     }, []);
     const handleSubmit = (e) => {
       e.preventDefault();
-      // console.log(email,password);
+     
       axios.post('userlogin',{
         email : email,
         password : password
       }).then((response) => {
-        console.log(response);
+      
         var userDatas = {
           access_token: response?.data?.access_token, 
            
@@ -29,19 +29,19 @@ function UserLogin() {
          
           
         }  
-        console.log(userDatas)
+        
         localStorage.setItem('manager',JSON.stringify(userDatas));
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.access_token;
         historys('/user/dashboard')
       }).catch((err) => {
-        // console.log(err)
+       
         if(err.response.status == 422){
           setError(err.response.data.errors)
       }
       else{
           setError(err.response.data)
       }
-        console.log(error)
+      
       }) }
   return (
     <>
@@ -70,7 +70,7 @@ function UserLogin() {
               {error && <p className="text-red-700">{error.password}</p>}
             </div>
             <div className="relative">
-              <button className="bg-cyan-500 text-white rounded-md px-2 py-1">Submit</button>
+              <button className="bg-cyan-500 text-white rounded-md px-2 py-1">Login</button>
               {error?.message && <p className="text-red-700">{error?.message}</p>}
             </div>
           </div>

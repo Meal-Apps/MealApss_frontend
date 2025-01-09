@@ -19,6 +19,7 @@ import UserDashboard from './pages/UserDashboard/UserDashboard'
 import UserOutlet from './pages/auth/outlet/UserOutlet'
 import AllUserExpenses from './pages/auth/user/AllUserExpenses'
 import AllUserBalance from './pages/auth/user/AllUserBalance'
+import AllUsers from './pages/auth/user/AllUsers'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -36,13 +37,14 @@ function App() {
       <Route exact path='user/dashboard' element={<UserDashboard/>}></Route>
       <Route exact path='user/expenses' element={<AllUserExpenses/>}></Route>
       <Route exact path='user/balance' element={<AllUserBalance/>}></Route>
+      <Route exact path='user/alluser' element={<AllUsers/>}></Route>
       </Route>
-      <Route exact path='*' element={<ManagerOutlet/>}>
-        <Route exact path='manager/dashboard' element={<ManagerDashboard/>}></Route>
-        <Route exact path='manager/expenses' element={<Allexpenses/>}></Route>
-        <Route exact path='manager/balance' element={<AllBalances/>}></Route>
-        <Route exact path='manager/alluser' element={<AllUser></AllUser>}></Route>
-        <Route exact path='manager/createuser' element={<CreateUser/>}></Route>
+      <Route exact path='/manager/' element={<ManagerOutlet/>}>
+        <Route exact path='dashboard' element={<ManagerDashboard/>}></Route>
+        <Route exact path='expenses' element={<Allexpenses/>}></Route>
+        <Route exact path='balance' element={<AllBalances/>}></Route>
+        <Route exact path='alluser' element={<AllUser/>}></Route>
+        <Route exact path='createuser' element={<CreateUser/>}></Route>
       </Route>
     </Routes>
   )

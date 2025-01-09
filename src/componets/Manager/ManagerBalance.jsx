@@ -26,7 +26,7 @@ function ManagerBalance() {
       setBalanceInfo(response?.data)
     })
     .catch((err) => {
-      console.log(err)
+     
     })
   },[selectedOption])
 

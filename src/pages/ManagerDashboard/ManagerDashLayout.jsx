@@ -1,14 +1,32 @@
+import axios from 'axios';
 import React, { Children, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function ManagerDashLayout({children}) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-
+  const token = JSON.parse(localStorage.getItem('manager'));
+  const historys = useNavigate();
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+    const handleLogout = () => {
+      axios.post('logoutmanager',{
 
+      },{
+        headers : {
+          Authorization : 'Bearer ' + token?.access_token
+        }
+      })
+      .then((response) =>{
+        localStorage.removeItem('manager');
+        historys('/manager-login')
+       
+      })
+      .catch((err) => {
+        
+      })
+    }
   const toggleUserMenu = () => {
     setUserMenuOpen(!userMenuOpen);
   };
@@ -33,7 +51,7 @@ function ManagerDashLayout({children}) {
                 </svg>
               </button>
               <Link href="/" className="flex ms-2 md:me-24">
-                <img src="/" className="h-8 me-3" alt="MealAPss Logo" />
+                {/* <img src="/" className="h-8 me-3" alt="MealAPss Logo" /> */}
                 <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Meal Apps</span>
               </Link>
             </div>
@@ -56,24 +74,19 @@ function ManagerDashLayout({children}) {
                   >
                     <div className="px-4 py-3" role="none">
                       <p className="text-sm text-gray-900 dark:text-white" role="none">
-                        Neil Sims
+                        {token?.meal_name}                        
                       </p>
                       <p className="text-sm font-medium text-gray-900 truncate dark:text-gray-300" role="none">
-                        neil.sims@admin.com
+                        admin@admin.com
                       </p>
                     </div>
                     <ul className="py-1" role="none">
                       <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</a>
+                        <Link to='/manager/dashboard' className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Dashboard</Link>
                       </li>
+                     
                       <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Settings</a>
-                      </li>
-                      <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
-                      </li>
-                      <li>
-                        <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
+                        <Link to="#" onClick={handleLogout} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</Link>
                       </li>
                     </ul>
                   </div>
@@ -120,7 +133,7 @@ function ManagerDashLayout({children}) {
                   </Link>
                </li>
                <li>
-                  <Link to='/manager/member' className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <Link to='/manager/alluser' className={`flex items-center ${window.location.pathname === '/manager/alluser' ? 'bg-cyan-500 text-white hover:text-gray-700' : ''}  p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group`}>
                      <svg className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18">
                         <path d="M14 2a3.963 3.963 0 0 0-1.4.267 6.439 6.439 0 0 1-1.331 6.638A4 4 0 1 0 14 2Zm1 9h-1.264A6.957 6.957 0 0 1 15 15v2a2.97 2.97 0 0 1-.184 1H19a1 1 0 0 0 1-1v-1a5.006 5.006 0 0 0-5-5ZM6.5 9a4.5 4.5 0 1 0 0-9 4.5 4.5 0 0 0 0 9ZM8 10H5a5.006 5.006 0 0 0-5 5v2a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-2a5.006 5.006 0 0 0-5-5Z"/>
                      </svg>
@@ -129,7 +142,7 @@ function ManagerDashLayout({children}) {
                </li>
                
                <li>
-                  <Link href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                  <Link to='/manager/createuser' className={`flex items-center ${window.location.pathname === '/manager/createuser' ? 'bg-cyan-500 text-white hover:text-gray-700' : ''}  p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group`}>
                      <svg className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.96 2.96 0 0 0 .13 5H5Z"/>
                         <path d="M6.737 11.061a2.961 2.961 0 0 1 .81-1.515l6.117-6.116A4.839 4.839 0 0 1 16 2.141V2a1.97 1.97 0 0 0-1.933-2H7v5a2 2 0 0 1-2 2H0v11a1.969 1.969 0 0 0 1.933 2h12.134A1.97 1.97 0 0 0 16 18v-3.093l-1.546 1.546c-.413.413-.94.695-1.513.81l-3.4.679a2.947 2.947 0 0 1-1.85-.227 2.96 2.96 0 0 1-1.635-3.257l.681-3.397Z"/>

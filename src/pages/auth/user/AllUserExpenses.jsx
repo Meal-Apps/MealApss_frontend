@@ -25,7 +25,7 @@ function AllUserExpenses() {
             setexpenseInfo(response?.data)
           })
           .catch((err) => {
-            console.log(err)
+           
           })
        
       },[selectedOption])

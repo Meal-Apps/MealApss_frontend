@@ -8,7 +8,7 @@ function UserOutlet() {
         return  <Outlet></Outlet> 
       }
       
-      return <Navigate to={'/manager-login'} />;
+      return <Navigate to={'/user-login'} />;
 }
 
 export default UserOutlet

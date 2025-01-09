@@ -23,7 +23,7 @@ function Allbalancess() {
         setbalancesInfo(response?.data)
       })
       .catch((err) => {
-        console.log(err)
+      
       })
     };
     const handleOptionChange = (option) => {
@@ -38,12 +38,12 @@ function Allbalancess() {
         }
       })
       .then((response) => {
-        console.log(response); 
+      
         // setProductData([])
         fetchBalances()
       })
       .catch((err) => {
-        console.log(err);
+       
       }); 
   
     }
@@ -52,17 +52,15 @@ function Allbalancess() {
      
     },[selectedOption])
     
-    console.log(balancesInfo)
-    console.log(balancesInfo?.balances?.length)
-    console.log('djifd')
+  
    
   return (
     <ManagerDashLayout>
     <div className='p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14'>
-    <h1>All balances</h1>
+    
     <div className=' mb-4 rounded bg-gray-50 dark:bg-gray-800'>
       
-     <h1>All balances</h1>
+    <h2 className="text-lg p-2 font-semibold">All Balance</h2>
      <BalanceModal fetchBalances={fetchBalances}/>
   
      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">

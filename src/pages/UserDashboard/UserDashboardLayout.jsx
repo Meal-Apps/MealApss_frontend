@@ -21,10 +21,10 @@ function UserDashboardLayout({children}) {
       .then((response) =>{
         localStorage.removeItem('manager');
         historys('/user-login')
-        console.log(response)
+       
       })
       .catch((err) => {
-        console.log(err)
+        
       })
     }
   const toggleUserMenu = () => {
@@ -50,7 +50,7 @@ function UserDashboardLayout({children}) {
               </svg>
             </button>
             <Link href="/" className="flex ms-2 md:me-24">
-              <img src="/" className="h-8 me-3" alt="MealAPss Logo" />
+              {/* <img src="/" className="h-8 me-3" alt="MealAPss Logo" /> */}
               <span className="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">Meal Apps</span>
             </Link>
           </div>
